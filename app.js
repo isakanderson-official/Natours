@@ -6,6 +6,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 const rateLimit = require('express-rate-limit');
 const tourRouter = require('./routes/tourRoutes');
@@ -28,6 +29,7 @@ app.set('views', path.join(__dirname, '/views'));
 // Serve Static Files
 app.use(express.static(path.join(__dirname, 'public')));
 //Below is middleware which adds certain properties
+
 //Set security HTTP headers
 app.use(helmet());
 
@@ -69,6 +71,8 @@ app.use(
     ],
   })
 );
+
+app.use(compression());
 // Serving static files
 //app.use(express.static(`${__dirname}/public`));
 
