@@ -7,6 +7,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 const rateLimit = require('express-rate-limit');
 const tourRouter = require('./routes/tourRoutes');
@@ -27,6 +28,15 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '/views'));
 // MIDDLEWARE
 
+app.use(cors());
+// Access-Control-Allow-Origin *
+// api.natours.com, natours.com
+/* app.use(cors({
+  origin: 'https://www.natours.com'
+}))
+*/
+
+app.options('*', cors());
 // Serve Static Files
 app.use(express.static(path.join(__dirname, 'public')));
 //Below is middleware which adds certain properties
